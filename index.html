@@ -11,17 +11,21 @@
 :root{--bg:#f6f3ee;--bg-lo:#fffdf9;--bg-hi:#f0ebe3;--bg-dk:#18150f;--text:#201c17;--t2:#5f554c;--t3:#9b9188;--ac:#1d7a69;--ac2:#d67a42;--bd:#d9d0c4;--bds:#c8bfb2;--warn:#a35a2a;--ok:#2d7a4b;--r1:6px;--r2:10px;--r3:16px;--r4:24px;--nh:58px;--w:900px;--fd:'Manrope',system-ui,sans-serif;--fs:'Newsreader',Georgia,serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--fd);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--fd);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(246,243,238,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;min-height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(246,243,238,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
 .nb{display:flex;flex-direction:column;gap:1px}
 .nb-n{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.02em}
 .nb-p{font-size:11px;color:var(--t3)}
-nav ul{display:flex;gap:2px;list-style:none}
-nav ul a{display:block;padding:5px 11px;border-radius:var(--r1);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;transition:color .15s,background .15s}
-nav ul a:hover{color:var(--text);background:var(--bg-hi)}
-nav ul a.on{color:var(--ac)}
+.nm-btn{display:none;align-items:center;gap:10px;background:transparent;border:1px solid var(--bd);border-radius:var(--r1);padding:7px 10px;color:var(--text);font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.nm-icon{display:flex;flex-direction:column;gap:3px}
+.nm-icon span{width:14px;height:1.5px;background:currentColor;border-radius:999px;transition:transform .18s ease,opacity .18s ease}
+.nm-label{letter-spacing:.02em}
+.nl{display:flex;gap:2px;list-style:none}
+.nl a{display:block;padding:5px 11px;border-radius:var(--r1);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;transition:color .15s,background .15s}
+.nl a:hover{color:var(--text);background:var(--bg-hi)}
+.nl a.on{color:var(--ac)}
 
 /* LAYOUT */
 .page{padding-top:var(--nh)}
@@ -350,13 +354,97 @@ footer a:hover{color:var(--text)}
 
 .fi2{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
 .fi2.vis{opacity:1;transform:none}
+@media (max-width: 1024px){
+  nav{padding:0 28px}
+  .w{padding:0 28px}
+  hr.d{margin:0 28px}
+  section{padding:72px 0}
+  .hero{padding:96px 0 72px!important}
+  .hm{gap:24px}
+  .qc{padding:40px}
+  .aisec{padding:44px}
+  .sdiag{grid-template-columns:1fr;gap:14px;padding:24px}
+  .sda{transform:rotate(90deg);min-height:24px}
+  .g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trio,.ag,.aig,.eg,.tdg,.nw{grid-template-columns:1fr}
+  .cg{grid-template-columns:1fr}
+  .stg{grid-template-columns:1fr 1fr}
+  .gsteps{grid-template-columns:1fr 1fr}
+  .bl,.pvl,.cpl,.rfl,.edl{grid-template-columns:1fr}
+  .bl-l,.pvs,.rfp{border-right:none;border-bottom:1px solid var(--bd)}
+  .edp{border-left:none;border-top:1px solid var(--bd)}
+  .pvl,.edl{min-height:0}
+  .jl[style*="grid-template-columns"]{display:block!important}
+  .pvm > div[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+  .er{flex-direction:column}
+  .sw{align-items:flex-start}
+  .pl > div[style*="display:flex;gap:10px"]{flex-wrap:wrap}
+}
+@media (max-width: 720px){
+  .page{padding-top:82px}
+  nav{padding:10px 18px;align-items:center;flex-wrap:wrap;gap:10px}
+  .nb{max-width:calc(100% - 108px)}
+  .nb-p{font-size:10px;line-height:1.35}
+  .nm-btn{display:inline-flex;margin-left:auto}
+  .nm-label{font-size:11px}
+  nav.open .nm-icon span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+  nav.open .nm-icon span:nth-child(2){opacity:0}
+  nav.open .nm-icon span:nth-child(3){transform:translateY(-4.5px) rotate(-45deg)}
+  .nl{display:none;width:100%;flex-direction:column;gap:4px;padding:10px;background:rgba(255,253,249,.98);border:1px solid var(--bd);border-radius:var(--r2);box-shadow:0 12px 30px rgba(32,28,23,.08)}
+  nav.open .nl{display:flex}
+  .nl a{padding:10px 12px;font-size:13px}
+  .w{padding:0 18px}
+  hr.d{margin:0 18px}
+  section{padding:56px 0}
+  .hero{padding:84px 0 56px!important}
+  .hero h1{font-size:clamp(32px,10vw,42px);margin-bottom:18px}
+  .hero-sub{font-size:15px;margin-bottom:32px}
+  .hm{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .qc{padding:28px;margin-top:28px}
+  .qc blockquote{font-size:clamp(18px,6vw,24px)}
+  .sl{margin-bottom:24px}
+  .card,.tr,.ac,.aic,.cc,.ec2,.tdc,.vli{padding:20px}
+  .g3,.trio,.ag,.aig,.cg,.eg,.tdg,.nw,.stg,.gsteps,.cpl{grid-template-columns:1fr}
+  .trow{grid-template-columns:1fr;gap:8px}
+  .ts-b{text-align:left}
+  .ts-m{display:none}
+  .fw::before{left:15px}
+  .fs{gap:18px}
+  .fn{width:32px;height:32px;font-size:11px}
+  .aisec{padding:30px 18px}
+  .sdiag{padding:18px}
+  .mk{border-radius:20px}
+  .mb{padding:10px 12px}
+  .mu{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bl-l,.bl-r,.pvs,.pvm,.rfp,.rfm,.edm,.edp,.pl{padding:18px}
+  .gw{padding:30px 18px}
+  .pht{display:grid;grid-template-columns:1fr;gap:8px}
+  .pvm > div[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
+  .crow{grid-template-columns:1fr;gap:5px}
+  .crl{padding-top:0}
+  .sw{gap:12px}
+  .vli{gap:12px}
+  .nc li{padding-left:12px}
+  footer{padding:24px 18px}
+}
+@media (max-width: 520px){
+  .hm{grid-template-columns:1fr}
+  .hkick{margin-bottom:20px}
+  .stx p,.sb,.ssub{font-size:14px}
+  .phh{font-size:19px}
+  .gt{font-size:18px}
+}
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="site-nav">
   <div class="nb"><span class="nb-n">Harsh Kakroo</span><span class="nb-p">Northstar — Website Builder Workflow</span></div>
-  <ul>
+  <button class="nm-btn" type="button" aria-expanded="false" aria-controls="site-nav-links">
+    <span class="nm-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="nm-label">Menu</span>
+  </button>
+  <ul class="nl" id="site-nav-links">
     <li><a href="#problem">Problem</a></li>
     <li><a href="#ai">Workflow</a></li>
     <li><a href="#solution">Solution</a></li>
@@ -822,7 +910,22 @@ footer a:hover{color:var(--text)}
 <script>
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.07});
 document.querySelectorAll('.fi2').forEach(el=>obs.observe(el));
-const links=document.querySelectorAll('nav ul a');
+const nav=document.getElementById('site-nav');
+const menuButton=document.querySelector('.nm-btn');
+const links=document.querySelectorAll('.nl a');
+const closeMenu=()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');};
+menuButton.addEventListener('click',()=>{
+  const open=nav.classList.toggle('open');
+  menuButton.setAttribute('aria-expanded',open?'true':'false');
+});
+links.forEach(link=>{
+  link.addEventListener('click',()=>{
+    if(window.innerWidth<=720&&nav.classList.contains('open'))closeMenu();
+  });
+});
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>720&&nav.classList.contains('open'))closeMenu();
+});
 window.addEventListener('scroll',()=>{
   let cur='';
   document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id});
