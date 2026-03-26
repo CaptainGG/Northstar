@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northstar — AI Website Builder · Harsh Kakroo</title>
+<meta name="description" content="A product design case study by Harsh Kakroo — Northstar, a guided AI website builder that treats personalisation as part of generation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ee;--bg-lo:#fffdf9;--bg-hi:#f0ebe3;--bg-dk:#18150f;--text:#201c17;--t2:#5f554c;--t3:#9b9188;--ac:#1d7a69;--ac2:#d67a42;--bd:#d9d0c4;--bds:#c8bfb2;--warn:#a35a2a;--ok:#2d7a4b;--r1:6px;--r2:10px;--r3:16px;--r4:24px;--nh:58px;--w:900px;--fd:'Manrope',system-ui,sans-serif;--fs:'Newsreader',Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fd);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(246,243,238,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.nb{display:flex;flex-direction:column;gap:1px}
+.nb-n{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.nb-p{font-size:11px;color:var(--t3)}
+nav ul{display:flex;gap:2px;list-style:none}
+nav ul a{display:block;padding:5px 11px;border-radius:var(--r1);font-size:12px;font-weight:600;color:var(--t2);text-decoration:none;transition:color .15s,background .15s}
+nav ul a:hover{color:var(--text);background:var(--bg-hi)}
+nav ul a.on{color:var(--ac)}
+
+/* LAYOUT */
+.page{padding-top:var(--nh)}
+.w{max-width:var(--w);margin:0 auto;padding:0 40px}
+section{padding:80px 0}
+section+section{padding-top:0}
+hr.d{border:none;border-top:1px solid var(--bd);margin:0 40px}
+
+/* HERO */
+.hero{padding:104px 0 80px!important}
+.hkick{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);background:rgba(29,122,105,.08);border:1px solid rgba(29,122,105,.2);border-radius:100px;padding:4px 12px;margin-bottom:28px}
+.hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-.035em;color:var(--text);max-width:700px;margin-bottom:22px}
+.hero h1 em{font-family:var(--fs);font-style:italic;font-weight:400;color:var(--ac)}
+.hero-sub{font-size:17px;color:var(--t2);max-width:560px;line-height:1.7;margin-bottom:48px}
+.hm{display:flex;gap:40px;flex-wrap:wrap}
+.hmi{display:flex;flex-direction:column;gap:3px}
+.hml{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.hmv{font-size:13px;font-weight:600;color:var(--t2)}
+.qc{background:var(--bg-dk);border-radius:var(--r4);padding:48px;margin-top:40px;position:relative;overflow:hidden}
+.qc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(29,122,105,.7) 40%,rgba(214,122,66,.5) 70%,transparent 95%)}
+.qc blockquote{font-family:var(--fs);font-size:clamp(19px,2.4vw,27px);font-style:italic;line-height:1.45;color:#f0ebe3;max-width:660px}
+.qc blockquote strong{color:#4fbdab;font-style:normal;font-family:var(--fd);font-weight:700}
+
+/* SECTION */
+.sl{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:36px}
+.sl::after{content:'';flex:1;height:1px;background:var(--bd)}
+h2.sh{font-size:clamp(24px,3vw,36px);font-weight:800;line-height:1.14;letter-spacing:-.028em;color:var(--text);margin-bottom:14px}
+p.sb{font-size:15px;color:var(--t2);max-width:640px;line-height:1.75}
+
+/* CARDS */
+.card{background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r3);padding:28px}
+.card h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
+.card p,.card li{font-size:13px;color:var(--t2);line-height:1.65}
+.card ul{padding-left:16px}.card li{margin-bottom:5px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:32px}
+.ca{border-color:rgba(29,122,105,.3)!important;background:rgba(29,122,105,.04)!important}
+.cb{border-color:rgba(214,122,66,.28)!important;background:rgba(214,122,66,.03)!important}
+.ci{width:34px;height:34px;border-radius:var(--r1);display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:14px}
+.ci-g{background:rgba(29,122,105,.1);border:1px solid rgba(29,122,105,.22)}
+.ci-o{background:rgba(214,122,66,.1);border:1px solid rgba(214,122,66,.22)}
+.ci-n{background:var(--bg-hi);border:1px solid var(--bd)}
+
+/* PROBLEM */
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r3);overflow:hidden;margin-top:32px}
+.tr{background:var(--bg-lo);padding:28px 24px}
+.tr-n{font-size:38px;font-weight:800;color:var(--bds);line-height:1;margin-bottom:12px;letter-spacing:-.04em}
+.tr-h{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
+.tr-b{font-size:12px;color:var(--t2);line-height:1.6}
+.tens{display:grid;gap:8px;margin-top:32px}
+.trow{display:grid;grid-template-columns:1fr 32px 1fr;align-items:stretch}
+.ts{padding:14px 18px;border-radius:var(--r2);font-size:13px;font-weight:500;line-height:1.4}
+.ts-b{background:rgba(163,90,42,.07);border:1px solid rgba(163,90,42,.18);color:#8b3d18;text-align:right}
+.ts-g{background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.18);color:#155f50}
+.ts-m{display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--t3)}
+
+/* ARCHETYPES */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.ac{background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r3);padding:28px}
+.at{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:14px}
+.atp{background:rgba(29,122,105,.1);color:#155f50;border:1px solid rgba(29,122,105,.22)}
+.ats{background:rgba(214,122,66,.1);color:#a3511d;border:1px solid rgba(214,122,66,.22)}
+.att{background:rgba(90,90,160,.09);color:#3d3b8e;border:1px solid rgba(90,90,160,.2)}
+.an{font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.02em}
+.ar{font-size:12px;color:var(--t3);margin-bottom:14px}
+.jl{list-style:none;padding:0}
+.jl li{font-size:12px;color:var(--t2);line-height:1.6;padding:8px 0 8px 18px;border-top:1px solid var(--bd);position:relative}
+.jl li::before{content:'→';position:absolute;left:0;color:var(--t3)}
+
+/* FLOW */
+.fw{margin-top:48px;position:relative}
+.fw::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:1px;background:linear-gradient(to bottom,var(--ac) 0%,var(--bd) 70%,transparent 100%)}
+.fs{display:flex;gap:24px;padding:0 0 28px}
+.fn{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--bg-lo);border:1px solid var(--bds);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--t2);position:relative;z-index:1}
+.fn.a{background:var(--ac);border-color:var(--ac);color:#fff}
+.fc{flex:1;padding-top:8px}
+.ft{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.fd{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:8px}
+.ftag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:100px;background:rgba(29,122,105,.09);color:#155f50;border:1px solid rgba(29,122,105,.2)}
+
+/* ── AI SECTION ── */
+.aisec{background:var(--bg-dk);border-radius:var(--r4);padding:56px;margin-top:0;position:relative;overflow:hidden}
+.aisec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(29,122,105,.6) 40%,rgba(79,189,171,.4) 75%,transparent 95%)}
+.aisec .sl{color:rgba(155,145,136,.7)}.aisec .sl::after{background:rgba(155,145,136,.18)}
+.aisec h2.sh{color:#f0ebe3}.aisec p.sb{color:rgba(240,235,227,.6)}
+.aig{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.aic{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r3);padding:26px}
+.aic h3{font-size:13px;font-weight:700;color:#e8e0d4;margin-bottom:8px}
+.aic p{font-size:12px;color:rgba(240,235,227,.55);line-height:1.65}
+.ail{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(79,189,171,.8);margin-bottom:10px}
+.sdh{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(79,189,171,.7);margin-bottom:12px}
+
+/* SIGNAL DIAGRAM */
+.sdiag{margin-top:36px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--r3);padding:28px 32px;display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;align-items:center;gap:0}
+.sdc{display:flex;flex-direction:column;gap:7px}
+.sdi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r1);padding:8px 11px;font-size:11px;color:rgba(240,235,227,.75);line-height:1.45}
+.sdi.hi{border-color:rgba(29,122,105,.5);background:rgba(29,122,105,.12);color:#a0ddd0}
+.sda{display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(29,122,105,.5)}
+
+/* CONFIDENCE CARDS */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.cc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r2);padding:20px}
+.cc-icon{font-size:17px;margin-bottom:9px}
+.cc-t{font-size:12px;font-weight:700;color:#e8e0d4;margin-bottom:4px}
+.cc-b{font-size:11px;color:rgba(240,235,227,.5);line-height:1.6}
+.cc-ex{margin-top:9px;padding:7px 9px;background:rgba(29,122,105,.15);border:1px solid rgba(29,122,105,.3);border-radius:var(--r1);font-size:10px;color:#9edfd4;line-height:1.5;font-style:italic}
+
+/* MOCKUP */
+.mk{background:var(--bg-lo);border:1px solid var(--bds);border-radius:var(--r4);overflow:hidden;box-shadow:0 2px 8px rgba(32,28,23,.06),0 14px 48px rgba(32,28,23,.09)}
+.mb{background:var(--bg-hi);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--bds)}
+.mu{margin-left:8px;font-size:11px;color:var(--t3);background:var(--bg-lo);border:1px solid var(--bd);border-radius:4px;padding:2px 10px}
+.ss{padding-bottom:64px}
+.sl2{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sn{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.st{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.ssub{font-size:13px;color:var(--t2);line-height:1.65;max-width:620px;margin-bottom:20px}
+
+/* BRIEF */
+.bl{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.bl-l{padding:32px 28px;border-right:1px solid var(--bd)}
+.bl-r{padding:32px 28px;background:var(--bg)}
+.bst{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.bh{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.02em;margin-bottom:5px}
+.bsb{font-size:12px;color:var(--t2);margin-bottom:22px;line-height:1.6}
+.fi{margin-bottom:16px}
+.fi label{display:block;font-size:10px;font-weight:700;color:var(--t2);letter-spacing:.04em;margin-bottom:4px;text-transform:uppercase}
+.fi input,.fi textarea{width:100%;padding:8px 11px;font-family:var(--fd);font-size:13px;background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r1);color:var(--text);outline:none}
+.fi textarea{resize:none;height:66px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{padding:4px 11px;border-radius:100px;font-size:11px;font-weight:600;background:var(--bg-hi);border:1px solid var(--bd);color:var(--t2)}
+.chip.sel{background:rgba(29,122,105,.1);border-color:rgba(29,122,105,.3);color:#155f50}
+.sbox{background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.2);border-radius:var(--r2);padding:14px;margin-bottom:14px}
+.sbox h4{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#155f50;margin-bottom:9px}
+.sr{display:flex;gap:8px;font-size:11px;margin-bottom:4px}
+.sk{color:var(--t3);min-width:80px}.sv{color:var(--text);font-weight:600}
+.mf{background:rgba(163,90,42,.07);border:1px solid rgba(163,90,42,.2);border-radius:var(--r1);padding:9px 12px;font-size:11px;color:#8b3d18;display:flex;align-items:center;gap:7px}
+.bp{display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:#fff;font-family:var(--fd);font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--r2);border:none;cursor:pointer;width:100%;justify-content:center;margin-top:14px}
+.bg{display:inline-flex;align-items:center;gap:5px;background:transparent;color:var(--t2);font-family:var(--fd);font-size:11px;font-weight:600;padding:6px 11px;border-radius:var(--r1);border:1px solid var(--bd);cursor:pointer}
+.aidot{width:5px;height:5px;border-radius:50%;background:#4fbdab;animation:pu 1.8s ease-in-out infinite;display:inline-block}
+@keyframes pu{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+/* STYLE SCREEN */
+.stg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:24px 24px 0}
+.stc{border:2px solid var(--bd);border-radius:var(--r3);overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s}
+.stc:hover{transform:translateY(-2px)}.stc.sel{border-color:var(--ac)}
+.sth{height:108px;position:relative;overflow:hidden}
+.sw{background:linear-gradient(135deg,#f8f2e8,#e8dcc8)}
+.sm{background:linear-gradient(135deg,#eef2f8,#dde6f3)}
+.sb2{background:linear-gradient(135deg,#1a1a2e,#2d2d4a)}
+.spw{position:absolute;bottom:8px;left:8px;right:8px;background:rgba(255,255,255,.9);border-radius:4px;padding:7px 9px;font-family:var(--fs);font-size:10px;color:#4a3b2a;font-style:italic}
+.spm{position:absolute;bottom:8px;left:8px;right:8px;background:rgba(255,255,255,.95);border-radius:4px;padding:7px 9px;font-size:10px;font-weight:700;color:#1a3a5c}
+.spb{position:absolute;bottom:8px;left:8px;right:8px;background:rgba(29,122,105,.9);border-radius:4px;padding:7px 9px;font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em}
+.si{padding:12px;background:var(--bg-lo)}
+.si-n{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.si-d{font-size:11px;color:var(--t2);line-height:1.5}
+.si-l{margin-top:7px;padding:6px 8px;background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.18);border-radius:4px;font-size:10px;color:#155f50;line-height:1.5}
+
+/* GENERATION */
+.gw{padding:44px 36px;text-align:center}
+.gt{font-size:20px;font-weight:700;letter-spacing:-.025em;color:var(--text);margin-bottom:5px}
+.gsb{font-size:13px;color:var(--t2);margin-bottom:32px}
+.gsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.gst{background:var(--bg-hi);border:1px solid var(--bd);border-radius:var(--r2);padding:13px 10px;text-align:left}
+.gst.done{border-color:rgba(29,122,105,.3);background:rgba(29,122,105,.05)}
+.gst.act{border-color:var(--ac)}
+.gi{font-size:14px;margin-bottom:6px}
+.gl{font-size:10px;font-weight:700;color:var(--t2);margin-bottom:2px}
+.gs2{font-size:10px;color:var(--t3)}
+.gst.done .gs2{color:#155f50;font-weight:700}.gst.act .gs2{color:var(--ac);font-weight:700}
+.gprog{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin-bottom:18px}
+.gbar{height:100%;background:var(--ac);border-radius:2px;width:65%;animation:pb 2s ease-in-out infinite alternate}
+@keyframes pb{from{width:60%}to{width:74%}}
+.gn{display:inline-flex;align-items:center;gap:6px;background:rgba(163,90,42,.07);border:1px solid rgba(163,90,42,.2);border-radius:var(--r1);padding:8px 14px;font-size:11px;color:#8b3d18}
+
+/* PREVIEW */
+.pvl{display:grid;grid-template-columns:284px 1fr;gap:0;min-height:450px}
+.pvs{padding:22px 18px;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:12px}
+.pvm{padding:22px;background:var(--bg)}
+.rb{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#155f50;background:rgba(29,122,105,.1);border:1px solid rgba(29,122,105,.22);border-radius:100px;padding:3px 8px;margin-bottom:7px}
+.pvc2{border:1.5px solid var(--bd);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .2s;margin-bottom:7px}
+.pvc2:hover{border-color:var(--bds)}.pvc2.rec{border-color:var(--ac)}
+.pvw{background:#f8f2e6;height:80px;padding:9px 11px}
+.pvh1{font-family:var(--fs);font-size:11px;color:#3a2f22;line-height:1.35;font-style:italic}
+.pvcta{display:inline-block;margin-top:4px;background:var(--ac);color:#fff;font-size:8px;font-weight:700;padding:3px 7px;border-radius:3px}
+.pvc-m{background:#f0f4f9;height:80px;padding:9px 11px}
+.pvh2{font-size:10px;font-weight:700;color:#1a3a5c;line-height:1.3}
+.pvc-b{background:#1a1a2e;height:80px;padding:9px 11px}
+.pvh3{font-size:9px;font-weight:800;color:#e8e4ff;letter-spacing:.05em;text-transform:uppercase}
+.pvi{padding:8px 11px;background:var(--bg-lo)}
+.pvn{font-size:10px;font-weight:700;color:var(--text)}
+.pvw2{font-size:10px;color:var(--t2);line-height:1.45;margin-top:2px}
+.ar{display:flex;gap:6px}
+.act{flex:1;padding:7px;border-radius:var(--r1);font-size:11px;font-weight:700;border:1px solid var(--bd);background:var(--bg-lo);color:var(--t2);cursor:pointer;text-align:center;transition:background .15s}
+.act:hover{background:var(--bg-hi)}.act.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+.ph{background:#f8f2e6;border-radius:var(--r3);padding:26px;margin-bottom:11px}
+.phe{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.phh{font-family:var(--fs);font-size:22px;font-style:italic;color:#3a2f22;line-height:1.3;margin-bottom:9px}
+.phs{font-size:12px;color:#5f4d3a;line-height:1.6;margin-bottom:14px;max-width:360px}
+.phc{display:inline-flex;align-items:center;gap:5px;background:var(--ac);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border-radius:var(--r2);text-decoration:none}
+.pht{display:flex;gap:12px;margin-top:14px}
+.phti{font-size:10px;color:#7a6452;display:flex;align-items:center;gap:3px}
+
+/* AI WHY PANEL */
+.aiw{background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.2);border-radius:var(--r2);padding:13px;margin-bottom:11px}
+.aiw-h{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#155f50;margin-bottom:9px}
+.aib{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(79,189,171,.9);background:rgba(29,122,105,.12);border:1px solid rgba(29,122,105,.25);border-radius:100px;padding:3px 9px}
+.aisr{display:flex;align-items:start;gap:8px;margin-bottom:6px;font-size:11px}
+.aisk{color:var(--t3);min-width:88px;flex-shrink:0}
+.aisv{color:var(--t2);line-height:1.45}
+.aisv strong{color:var(--text);font-weight:700}
+
+/* COMPARISON */
+.cpl{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cpc{padding:22px 20px}.cpc:first-child{border-right:1px solid var(--bd)}
+.ctag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:9px}
+.ctr{background:rgba(29,122,105,.1);color:#155f50;border:1px solid rgba(29,122,105,.22)}
+.cta2{background:rgba(32,28,23,.07);color:var(--t2);border:1px solid var(--bd)}
+.cpn{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:-.02em}
+.crow{padding:9px 0;border-bottom:1px solid var(--bd);display:grid;grid-template-columns:84px 1fr;gap:9px;align-items:start}
+.crl{font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--t3);padding-top:1px;text-transform:uppercase}
+.crv{font-size:11px;color:var(--t2);line-height:1.55}
+.crv-d{font-size:11px;color:var(--ac2);font-weight:600}
+.ai-dn{background:rgba(214,122,66,.07);border:1px solid rgba(214,122,66,.22);border-radius:var(--r1);padding:9px 11px;font-size:10px;color:#a3511d;line-height:1.55;margin-top:10px}
+.ai-dn strong{font-weight:700}
+
+/* REFINEMENT */
+.rfl{display:grid;grid-template-columns:264px 1fr;gap:0}
+.rfp{padding:22px 18px;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:16px}
+.rfm{padding:22px;background:var(--bg)}
+.rsh{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
+.sc{display:flex;flex-wrap:wrap;gap:6px}
+.sug{padding:5px 10px;border-radius:100px;font-size:11px;font-weight:600;background:var(--bg-hi);border:1px solid var(--bd);color:var(--t2);cursor:pointer;transition:all .15s}
+.sug:hover{background:rgba(29,122,105,.08);border-color:rgba(29,122,105,.3);color:#155f50}
+.sug.on{background:rgba(29,122,105,.1);border-color:rgba(29,122,105,.3);color:#155f50}
+.ri{width:100%;padding:8px 11px;font-family:var(--fd);font-size:12px;background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r1);color:var(--text);outline:none;margin-top:7px}
+.ri:focus{border-color:var(--ac)}
+.lb{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:11px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#2d7a4b;animation:pu 1.6s ease-in-out infinite}
+.wc{background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.18);border-radius:var(--r1);padding:8px 12px;font-size:10px;color:#155f50;line-height:1.55;margin-top:9px}
+.wc strong{font-weight:700}
+
+/* EDITOR */
+.edl{display:grid;grid-template-columns:1fr 264px;gap:0;min-height:410px}
+.edm{padding:22px;background:var(--bg)}
+.edp{padding:22px 16px;border-left:1px solid var(--bd);display:flex;flex-direction:column;gap:13px}
+.fec{background:rgba(214,122,66,.07);border:1px solid rgba(214,122,66,.25);border-radius:var(--r2);padding:13px}
+.fel{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a3511d;margin-bottom:5px}
+.fet{font-size:11px;color:var(--text);line-height:1.6;margin-bottom:7px}
+.fea{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--ac);cursor:pointer}
+.ctl{list-style:none;padding:0}
+.ctl li{font-size:11px;color:var(--t2);line-height:1.5;padding:6px 0;border-bottom:1px solid var(--bd);display:flex;gap:7px;align-items:start}
+.ctd{width:4px;height:4px;border-radius:50%;background:var(--bds);margin-top:5px;flex-shrink:0}
+.ctn{font-size:11px;color:var(--t3);line-height:1.55;font-style:italic}
+.ec{background:var(--bg-lo);border-radius:var(--r3);border:1px solid var(--bd);overflow:hidden}
+.etb{background:var(--bg-hi);border-bottom:1px solid var(--bd);padding:7px 12px;display:flex;align-items:center;gap:7px}
+.et{width:22px;height:22px;border-radius:3px;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--t3);cursor:pointer}
+.esep{width:1px;height:13px;background:var(--bd)}
+.ehb{background:#f8f2e6;padding:18px;border-bottom:1px solid var(--bd);position:relative}
+.ehl{position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;border:2px solid var(--ac2);pointer-events:none}
+.ehh{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:3px;background:var(--ac2);color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:3px;letter-spacing:.04em;text-transform:uppercase}
+.ebb{padding:14px 18px}
+.er{display:flex;gap:7px;margin-bottom:7px}
+.ebi{flex:1;background:var(--bg-hi);border-radius:3px;padding:8px 9px}
+.ebil{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:2px}
+.ebiv{font-size:10px;color:var(--t2);line-height:1.45}
+
+/* PUBLISH */
+.pl{padding:30px 34px}
+.sw{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.sr2{width:66px;height:66px;flex-shrink:0;border-radius:50%;background:conic-gradient(var(--ac) 0% 62%,var(--bd) 62% 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.sr2::before{content:'';position:absolute;inset:8px;background:var(--bg-lo);border-radius:50%}
+.sv2{position:relative;z-index:1;font-size:13px;font-weight:700;color:var(--text)}
+.stx h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.stx p{font-size:12px;color:var(--t2);line-height:1.6}
+.cl{list-style:none;padding:0;display:grid;gap:5px}
+.cl li{display:flex;align-items:start;gap:9px;background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r2);padding:10px 12px;font-size:11px;line-height:1.5}
+.cl li.ok{background:rgba(29,122,105,.05);border-color:rgba(29,122,105,.18)}
+.cl li.wn{background:rgba(163,90,42,.05);border-color:rgba(163,90,42,.2)}
+.cl li.fl{background:rgba(163,90,42,.08);border-color:rgba(163,90,42,.25)}
+.cii{width:15px;height:15px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;margin-top:1px}
+.io{background:rgba(29,122,105,.15);color:#155f50}
+.iw{background:rgba(163,90,42,.15);color:#8b3d18}
+.if{background:rgba(163,90,42,.2);color:#8b3d18}
+.clt{font-weight:700;color:var(--text);font-size:11px;margin-bottom:1px}
+.cld{font-size:10px;color:var(--t2);line-height:1.5}
+
+/* EDGE CASES */
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.ec2{background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r3);padding:22px}
+.etag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
+.et2{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+.eb{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:9px}
+.er2{background:rgba(29,122,105,.07);border:1px solid rgba(29,122,105,.18);border-radius:var(--r1);padding:9px 11px;font-size:11px;color:#155f50;line-height:1.55}
+.er2 strong{font-weight:700}
+
+/* DECISIONS */
+.tdg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.tdc{background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r3);padding:22px}
+.tdl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.tdd{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+.tdr{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:8px}
+.tdc2{font-size:11px;color:#8b3d18;font-style:italic}
+
+/* VALIDATE */
+.vll{display:grid;gap:10px;margin-top:32px}
+.vli{display:flex;gap:14px;align-items:start;background:var(--bg-lo);border:1px solid var(--bd);border-radius:var(--r2);padding:18px}
+.vln{width:26px;height:26px;border-radius:50%;background:var(--bg-hi);border:1px solid var(--bds);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--t2);flex-shrink:0}
+.vlh{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.vlb{font-size:12px;color:var(--t2);line-height:1.6}
+
+/* NOTES */
+.nw{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.nc h4{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.nc ul{padding-left:0;list-style:none}
+.nc li{font-size:12px;color:var(--t2);line-height:1.65;padding:5px 0 5px 14px;border-top:1px solid var(--bd);position:relative}
+.nc li::before{content:'—';position:absolute;left:0;color:var(--t3)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bd);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fa{display:flex;flex-direction:column;gap:2px}
+.fa-n{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.fa-r{font-size:12px;color:var(--t3)}
+footer a{font-size:12px;color:var(--t3);text-decoration:none;transition:color .15s}
+footer a:hover{color:var(--text)}
+
+.fi2{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
+.fi2.vis{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nb"><span class="nb-n">Harsh Kakroo</span><span class="nb-p">Northstar — AI Website Builder</span></div>
+  <ul>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#ai">AI Design</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#screens">Screens</a></li>
+    <li><a href="#decisions">Decisions</a></li>
+    <li><a href="#validate">Next Steps</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<section class="hero w fi2">
+  <div class="hkick">Product Design · AI Systems · 2024</div>
+  <h1>When AI builds your site,<br><em>guidance matters more than generation.</em></h1>
+  <p class="hero-sub">Northstar is a concept for a guided AI website builder that treats personalisation as part of generation — not a repair step after it.</p>
+  <div class="hm">
+    <div class="hmi"><span class="hml">Designer</span><span class="hmv">Harsh Kakroo</span></div>
+    <div class="hmi"><span class="hml">Scope</span><span class="hmv">End-to-end product concept</span></div>
+    <div class="hmi"><span class="hml">Platform</span><span class="hmv">Desktop-first, WordPress-hosted</span></div>
+    <div class="hmi"><span class="hml">Audience</span><span class="hmv">Small-business owners</span></div>
+  </div>
+  <div class="qc">
+    <blockquote>The fastest AI builder won't win. The one that makes users feel the result is <strong>actually theirs</strong> will.</blockquote>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- PROBLEM -->
+<section class="w fi2" id="problem">
+  <div class="sl">01 — Problem</div>
+  <h2 class="sh">Speed is solved. Specificity isn't.</h2>
+  <p class="sb">AI builders generate plausible sites in seconds. What they haven't solved is why those sites still feel like they could belong to any business in the category.</p>
+  <div class="trio">
+    <div class="tr"><div class="tr-n">01</div><div class="tr-h">Invisible understanding</div><div class="tr-b">Users can't tell what the AI understood before generation starts. Confidence gaps lead to distrust in the first output — and a higher restart rate.</div></div>
+    <div class="tr"><div class="tr-n">02</div><div class="tr-h">Polished but interchangeable</div><div class="tr-b">Generated sites look coherent on first glance and forgettable on second. Service-specific trust signals, local credibility, and brand voice are missing or buried.</div></div>
+    <div class="tr"><div class="tr-n">03</div><div class="tr-h">The edit cliff</div><div class="tr-b">The handoff from "AI made this" to "now you edit it" is abrupt. Users reach the builder not knowing what's safe to change — and momentum collapses.</div></div>
+  </div>
+  <div style="margin-top:40px">
+    <h2 class="sh">Five design tensions this concept had to resolve.</h2>
+    <div class="tens">
+      <div class="trow"><div class="ts ts-b">Ask for a perfect prompt</div><div class="ts-m">vs</div><div class="ts ts-g">Guide intent in plain language</div></div>
+      <div class="trow"><div class="ts ts-b">Feel polished but generic</div><div class="ts-m">vs</div><div class="ts ts-g">Feel specific without pretending</div></div>
+      <div class="trow"><div class="ts ts-b">Onboard beginners for too long</div><div class="ts-m">vs</div><div class="ts ts-g">Let experienced users accelerate</div></div>
+      <div class="trow"><div class="ts ts-b">Drop into editing cold</div><div class="ts-m">vs</div><div class="ts ts-g">Carry AI context into the first edit</div></div>
+      <div class="trow"><div class="ts ts-b">Cosmetically different alternates</div><div class="ts-m">vs</div><div class="ts ts-g">Meaningfully different directions</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- USERS -->
+<section class="w fi2">
+  <div class="sl">02 — Users &amp; Jobs</div>
+  <h2 class="sh">One flow, three different expectations.</h2>
+  <p class="sb">The user spectrum isn't a simple skill axis — it's a range of what trust means. Beginners need confidence. Operators need efficiency. Power users need control they can reach quickly.</p>
+  <div class="ag">
+    <div class="ac"><span class="at atp">Primary</span><div class="an">First-Time Founder</div><div class="ar">Launching a local service business or side hustle</div><ul class="jl"><li>Help me describe my business without knowing website terminology</li><li>Show me what you understood before building anything</li><li>Make sure my site doesn't look like every other landscaper in the city</li><li>Tell me what to change first so I don't break what's working</li></ul></div>
+    <div class="ac"><span class="at ats">Primary</span><div class="an">Practical Operator</div><div class="ar">Running a small business with limited time and high standards</div><ul class="jl"><li>I need this to feel credible, not just functional</li><li>My trust signals are specific — they need to actually show up</li><li>Refinement should take minutes, not sessions</li><li>The CTA has to match how my customers actually contact me</li></ul></div>
+    <div class="ac" style="grid-column:1/-1"><span class="at att">Secondary</span><div class="an">WordPress-Savvy Builder</div><div class="ar">Has edited WordPress themes before — skeptical of shallow AI output</div><ul class="jl" style="display:grid;grid-template-columns:1fr 1fr;gap:0"><li style="padding-right:18px">I'll tolerate the guided flow if I can reach real editing quickly</li><li>I want to see why one version differs from another — not just that it does</li><li style="padding-right:18px">Don't hide editor access behind two more onboarding steps</li><li>Keep AI context visible when I start editing so I can trace what changed</li></ul></div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- AI DECISION LOGIC -->
+<section class="w fi2" id="ai" style="padding-bottom:0">
+  <div class="sl">03 — AI Decision Logic</div>
+  <h2 class="sh">The AI is visible, traceable, and correctable.</h2>
+  <p class="sb">Most AI builders treat the model as a black box that delivers an answer. Northstar treats every AI decision as a surface that can be explained, questioned, and adjusted — without technical language.</p>
+</section>
+
+<section class="w fi2" style="padding-top:28px">
+  <div class="aisec">
+    <div class="sl" style="margin-bottom:24px">How the recommendation engine works</div>
+    <h2 class="sh" style="color:#f0ebe3;margin-bottom:10px">From brief to recommendation — every signal shown.</h2>
+    <p class="sb" style="color:rgba(240,235,227,.6);margin-bottom:0">The system scores each generated direction against the business brief across four dimensions. The highest-scoring direction is recommended with the reasoning shown, not hidden.</p>
+
+    <div class="sdiag">
+      <div class="sdc">
+        <div class="sdh">Brief inputs</div>
+        <div class="sdi">Goal: quote requests</div>
+        <div class="sdi hi">Tone: local, personal</div>
+        <div class="sdi hi">Trust signals: 3 present</div>
+        <div class="sdi">Service area: specific</div>
+        <div class="sdi">Images: none uploaded</div>
+      </div>
+      <div class="sda">→</div>
+      <div class="sdc">
+        <div class="sdh">Scoring dimensions</div>
+        <div class="sdi hi">Trust signal match</div>
+        <div class="sdi hi">Tone alignment</div>
+        <div class="sdi">CTA framing fit</div>
+        <div class="sdi">Structural specificity</div>
+        <div class="sdi">Audience signal match</div>
+      </div>
+      <div class="sda">→</div>
+      <div class="sdc">
+        <div class="sdh">Recommendation output</div>
+        <div class="sdi hi">★ Warm &amp; Personal — 91%</div>
+        <div class="sdi">Clean &amp; Professional — 74%</div>
+        <div class="sdi">Bold &amp; Direct — 61%</div>
+        <div class="sdi" style="margin-top:5px;font-style:italic;opacity:.6">Rationale shown to user in plain language</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <div class="sdh" style="margin-bottom:14px">Four AI confidence signals surfaced throughout the flow</div>
+      <div class="cg">
+        <div class="cc"><div class="cc-icon">📋</div><div class="cc-t">Brief confirmation</div><div class="cc-b">Before generation, the AI reflects what it understood in plain language. The user can correct any field before output begins — the highest-leverage trust moment in the flow.</div><div class="cc-ex">"We understood: local landscaping, Portland metro, quote-focused, personal tone."</div></div>
+        <div class="cc"><div class="cc-icon">★</div><div class="cc-t">Recommendation rationale</div><div class="cc-b">Every recommended version carries a one-paragraph explanation tied to the business brief — not generic design advice.</div><div class="cc-ex">"Your brief emphasised trust signals and a local service area. This direction surfaces both in the hero."</div></div>
+        <div class="cc"><div class="cc-icon">⚠</div><div class="cc-t">Specificity gap flags</div><div class="cc-b">When the AI can't infer something — no photos, no contact email, no testimonials — it flags the gap rather than silently filling it with convincing-looking placeholder content.</div><div class="cc-ex">"No images uploaded — category imagery in use. Swap these for higher specificity."</div></div>
+        <div class="cc"><div class="cc-icon">↻</div><div class="cc-t">Change attribution</div><div class="cc-b">After each refinement, the system explains what changed and why — so users understand the result rather than just accepting it.</div><div class="cc-ex">"'More local' added Lake Oswego to the hero and softened the headline to relational framing."</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <div class="sdh" style="margin-bottom:14px">Design principles for surfacing AI decisions</div>
+      <div class="aig">
+        <div class="aic"><div class="ail">Principle 01</div><h3>Show understanding before showing output</h3><p>The brief confirmation step exists so users can see and correct what the AI understood before committing to a generation pass. Trust is built before output, not negotiated after it.</p></div>
+        <div class="aic"><div class="ail">Principle 02</div><h3>Explain why, not just what</h3><p>Every AI recommendation includes a rationale tied to the business brief. "This leads with your trust signals because your goal is quote conversion" is useful. "This uses a warm palette" is not.</p></div>
+        <div class="aic"><div class="ail">Principle 03</div><h3>Surface uncertainty honestly</h3><p>When the AI lacks information to generate something specific, it flags the gap rather than filling it silently with convincing-looking placeholder content.</p></div>
+        <div class="aic"><div class="ail">Principle 04</div><h3>Make every AI step reversible</h3><p>Users can correct the brief, switch recommendations, undo refinements, or override at any point. The system invites scrutiny — because scrutiny builds trust.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="d" style="margin-top:80px">
+
+<!-- SOLUTION -->
+<section class="w fi2" id="solution">
+  <div class="sl">04 — Solution</div>
+  <h2 class="sh">Guided collaboration, not one-shot generation.</h2>
+  <p class="sb">Refinement belongs inside generation — not after it. Every step shapes intent before output appears, so users compare meaningfully and enter editing with momentum.</p>
+  <div class="fw">
+    <div class="fs"><div class="fn a">1</div><div class="fc"><div class="ft">Business Brief Capture</div><div class="fd">Guided inputs replace blank prompts. The system reflects understanding back in plain language so users can confirm — or correct — before generation begins.</div><span class="ftag">Visibility before confidence</span></div></div>
+    <div class="fs"><div class="fn a">2</div><div class="fc"><div class="ft">Style &amp; Personality Selection</div><div class="fd">Three meaningfully different directions. Each selection shapes layout, copy emphasis, and site character — not just colour or font.</div><span class="ftag">Preference before generation</span></div></div>
+    <div class="fs"><div class="fn a">3</div><div class="fc"><div class="ft">Generation with Expectation Setting</div><div class="fd">Progress is explained step by step. Specificity gaps are flagged as opportunities — before the user reviews output.</div><span class="ftag">Transparency reduces anxiety</span></div></div>
+    <div class="fs"><div class="fn a">4</div><div class="fc"><div class="ft">Recommended Preview with AI Rationale</div><div class="fd">One recommendation leads with a brief explaining why it scored highest. Alternates are visible but clearly secondary.</div><span class="ftag">Recommendation with reasoning</span></div></div>
+    <div class="fs"><div class="fn a">5</div><div class="fc"><div class="ft">Version Comparison with Plain-Language Diffs</div><div class="fd">Two versions, compared on tone, structure, emphasis, and trust-building. Differences explained in business terms — not design vocabulary.</div><span class="ftag">Deliberate choice over gut feel</span></div></div>
+    <div class="fs"><div class="fn a">6</div><div class="fc"><div class="ft">Guided Refinement</div><div class="fd">Outcome-framed controls — "more premium," "warmer," "more local" — let users improve the selected version. Every change is explained and reversible.</div><span class="ftag">Business outcomes, not tool language</span></div></div>
+    <div class="fs"><div class="fn a">7</div><div class="fc"><div class="ft">Editor Handoff with First-Edit Recommendation</div><div class="fd">Generated site loads in the editor with one highlighted action and a compressed view of what still needs input. AI context preserved and visible.</div><span class="ftag">Continuation, not a cliff</span></div></div>
+    <div class="fs"><div class="fn">8</div><div class="fc"><div class="ft">Publish Readiness Check</div><div class="fd">Lightweight check for business completeness, trust signals, and conversion basics. Advisory — not a gate.</div><span class="ftag">Signal, not gatekeeping</span></div></div>
+  </div>
+  <div style="margin-top:40px">
+    <h2 class="sh">Three-layer control model</h2>
+    <p class="sb">The same flow serves beginners and power users by surfacing control progressively — never asking for more than the user needs to give at each step.</p>
+    <div class="g3">
+      <div class="card ca"><div class="ci ci-g">🗣</div><h3>Layer 1 — Plain-language brief</h3><p>Business type, tone, goals, trust signals. Structured inputs, not open prompts. No terminology required.</p></div>
+      <div class="card cb"><div class="ci ci-o">🎛</div><h3>Layer 2 — Guided refinement</h3><p>Outcome-framed suggestions, one-tap controls. Business improvements, not tool jargon. Accessible from preview.</p></div>
+      <div class="card"><div class="ci ci-n">⚙️</div><h3>Layer 3 — Advanced edit handoff</h3><p>Full editor with preserved AI context. First edit recommended. Expert escape hatch that never breaks the flow.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- SCREENS -->
+<section class="w fi2" id="screens">
+  <div class="sl">05 — Screen Narrative</div>
+  <h2 class="sh">Eight moments that define the experience.</h2>
+  <p class="sb">Each screen is designed around a specific trust-building goal — not just an information-collection step.</p>
+</section>
+
+<!-- S1 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">1</div><div class="st">Business Brief Capture</div></div>
+  <p class="ssub">Short guided inputs with a live AI summary. Users see what the system understood before committing to generation — the single highest-leverage trust moment in the flow.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/start</div></div>
+    <div class="bl">
+      <div class="bl-l">
+        <div class="bst">Step 1 of 3 — Tell us about your business</div>
+        <div class="bh">What are you building?</div>
+        <div class="bsb">Tell us the basics and we'll handle the structure. You can refine anything after.</div>
+        <div class="fi"><label>Business name</label><input type="text" value="Green Leaf Landscaping" readonly></div>
+        <div class="fi"><label>What do you do?</label><textarea readonly>Residential lawn care and landscaping for Portland homeowners. Specialising in sustainable, low-maintenance garden designs.</textarea></div>
+        <div class="fi"><label>What do you want visitors to do?</label><div class="chips"><span class="chip sel">Request a quote</span><span class="chip">Book a call</span><span class="chip">Learn about services</span><span class="chip">See my work</span></div></div>
+        <div class="fi"><label>Trust signals</label><div class="chips"><span class="chip sel">10+ years experience</span><span class="chip sel">Licensed &amp; insured</span><span class="chip">Before/after photos</span><span class="chip sel">Local reviews</span></div></div>
+      </div>
+      <div class="bl-r">
+        <div class="bst" style="display:flex;align-items:center;gap:7px"><div class="aidot"></div>AI summary — confirm before building</div>
+        <div class="bh">What we understood</div>
+        <div class="bsb">The AI will use this to generate your site. Edit anything that's off.</div>
+        <div class="sbox"><h4>Brief confirmed</h4><div class="sr"><span class="sk">Business</span><span class="sv">Green Leaf Landscaping</span></div><div class="sr"><span class="sk">Service area</span><span class="sv">Portland metro — residential</span></div><div class="sr"><span class="sk">Goal</span><span class="sv">Quote requests from homeowners</span></div><div class="sr"><span class="sk">Tone</span><span class="sv">Sustainable, professional, local</span></div><div class="sr"><span class="sk">Trust signals</span><span class="sv">10+ yrs, licensed, local reviews</span></div></div>
+        <div class="mf"><span>⚠</span>No images added yet — category imagery will be used. You can swap these in refinement.</div>
+        <button class="bp">Build my site →</button>
+        <div style="margin-top:8px;text-align:center;font-size:11px;color:var(--t3)">You can change anything before or after generation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">2</div><div class="st">Style &amp; Personality Selection</div></div>
+  <p class="ssub">Each direction includes a plain-language note explaining how the AI will use the selection — what changes in copy, section order, and layout emphasis. The choice shapes generation, not just appearance.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/style</div></div>
+    <div style="padding:22px 22px 0"><div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:7px">Step 2 of 3 — Site personality</div><div style="font-size:17px;font-weight:700;letter-spacing:-.025em;color:var(--text);margin-bottom:4px">How should your site feel?</div><div style="font-size:12px;color:var(--t2)">Pick the direction that fits how you want customers to see you. This shapes layout, copy tone, and section structure.</div></div>
+    <div class="stg">
+      <div class="stc sel"><div class="sth sw"><div class="spw">"Designed to feel like your outdoor space, not ours."</div></div><div class="si"><div class="si-n">Warm &amp; Personal</div><div class="si-d">Trust-led, service-forward. Feels local and human — relationship before credentials.</div><div class="si-l">AI will lead with trust signals, use conversational copy, and place your quote CTA in the hero.</div></div></div>
+      <div class="stc"><div class="sth sm"><div class="spm">Professional Landscaping Services</div></div><div class="si"><div class="si-n">Clean &amp; Professional</div><div class="si-d">Structured, credential-forward. Feels established — works well when competing at scale.</div><div class="si-l">AI will lead with credentials, use formal copy, and structure services before personality.</div></div></div>
+      <div class="stc"><div class="sth sb2"><div class="spb">Portland's Most Trusted Lawn Care</div></div><div class="si"><div class="si-n">Bold &amp; Direct</div><div class="si-d">High-contrast, conversion-focused. Claims category authority confidently.</div><div class="si-l">AI will use strong CTAs, authority language, and a compressed above-the-fold structure.</div></div></div>
+    </div>
+    <div style="padding:14px 22px 18px;display:flex;align-items:center;justify-content:space-between"><div style="font-size:12px;color:var(--t2)">Selected: <strong>Warm &amp; Personal</strong> — shapes headline style, section order, and CTA framing.</div><button class="bp" style="width:auto;margin-top:0">Continue →</button></div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">3</div><div class="st">Generation Progress</div></div>
+  <p class="ssub">What the AI is doing is never a black box. Each step names what's being decided. Specificity gaps are flagged before the user reviews output — so corrections happen at the right moment.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/building</div></div>
+    <div class="gw">
+      <div class="gt">Building your site</div><div class="gsb">Assembling three directions from your brief. About 30 seconds.</div>
+      <div class="gsteps">
+        <div class="gst done"><div class="gi">✓</div><div class="gl">Brief analysis</div><div class="gs2">Complete</div></div>
+        <div class="gst done"><div class="gi">✓</div><div class="gl">Layout selection</div><div class="gs2">Complete</div></div>
+        <div class="gst act"><div class="gi" style="animation:pu 1.2s ease-in-out infinite;display:inline-block">⟳</div><div class="gl">Copy generation</div><div class="gs2">Writing service sections…</div></div>
+        <div class="gst"><div class="gi" style="opacity:.4">◎</div><div class="gl">Final assembly</div><div class="gs2">Waiting</div></div>
+      </div>
+      <div class="gprog"><div class="gbar"></div></div>
+      <div class="gn"><span>⚠</span>No photos uploaded — category imagery in use. You'll be able to swap these after generation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">4</div><div class="st">Recommended Preview with AI Rationale</div></div>
+  <p class="ssub">The recommendation is the highest-scoring match for the brief — not just the first result. The AI rationale panel shows which inputs drove the recommendation, so users understand the logic before acting on it.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/preview</div></div>
+    <div class="pvl">
+      <div class="pvs">
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:9px">Generated versions</div>
+        <div class="pvc2 rec"><div class="pvw"><div class="pvh1">Your garden, exactly how you imagined it.</div><div class="pvcta">Get a free quote</div></div><div class="pvi"><div class="rb">★ Recommended</div><div class="pvn">Warm &amp; Personal</div><div class="pvw2">Best match: service-led, local-feeling, quote-focused.</div></div></div>
+        <div class="pvc2"><div class="pvc-m"><div class="pvh2">Professional Landscaping Services — Portland</div><div class="pvcta" style="background:#1a5c8a">Request a quote</div></div><div class="pvi"><div class="pvn">Clean &amp; Professional</div><div class="pvw2">More credential-forward. Stronger for competing at scale.</div></div></div>
+        <div class="pvc2"><div class="pvc-b"><div class="pvh3">Portland's Most Trusted Lawn Care</div><div class="pvcta">Book today</div></div><div class="pvi"><div class="pvn">Bold &amp; Direct</div><div class="pvw2">High-contrast, conversion-focused. Different audience assumption.</div></div></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="ar"><div class="act p">Keep this</div><div class="act">Compare</div></div>
+          <div class="ar"><div class="act">Refine</div><div class="act">Edit directly</div></div>
+        </div>
+      </div>
+      <div class="pvm">
+        <div class="aiw">
+          <div class="aiw-h"><div class="aib"><div class="aidot"></div>AI reasoning</div></div>
+          <div class="aisr"><span class="aisk">Brief inputs used</span><span class="aisv">Local tone, 3 trust signals, quote-request goal — all matched to Warm &amp; Personal scoring.</span></div>
+          <div class="aisr"><span class="aisk">Why it leads</span><span class="aisv">Trust signals appear in the hero. Headline is relational, not credential-first. CTA is low-commitment.</span></div>
+          <div class="aisr"><span class="aisk">Specificity gap</span><span class="aisv"><strong>No photos.</strong> Category imagery in use — swapping in real photos is the highest-impact improvement available.</span></div>
+        </div>
+        <div class="ph">
+          <div class="phe">Serving Portland since 2014</div>
+          <div class="phh">Your garden, exactly how you imagined it.</div>
+          <div class="phs">Professional lawn care and sustainable landscaping for Portland homeowners. Licensed, insured, and backed by 10+ years of local experience.</div>
+          <a href="#" class="phc">Get a free quote →</a>
+          <div class="pht"><div class="phti">✓ Licensed &amp; insured</div><div class="phti">✓ 10+ years in Portland</div><div class="phti">★ 4.9 — 120 local reviews</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px">
+          <div style="background:var(--bg-hi);border-radius:var(--r2);padding:11px"><div style="font-weight:700;color:var(--text);font-size:11px;margin-bottom:3px">Lawn maintenance</div><div style="color:var(--t2);font-size:10px;line-height:1.5">Weekly mowing, edging, seasonal cleanup.</div></div>
+          <div style="background:var(--bg-hi);border-radius:var(--r2);padding:11px"><div style="font-weight:700;color:var(--text);font-size:11px;margin-bottom:3px">Garden design</div><div style="color:var(--t2);font-size:10px;line-height:1.5">Sustainable, low-maintenance planting plans.</div></div>
+          <div style="background:var(--bg-hi);border-radius:var(--r2);padding:11px"><div style="font-weight:700;color:var(--text);font-size:11px;margin-bottom:3px">Seasonal care</div><div style="color:var(--t2);font-size:10px;line-height:1.5">Spring prep, fall cleanup, winterisation.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">5</div><div class="st">Version Comparison</div></div>
+  <p class="ssub">Two versions only. Differences are described in business language — tone, emphasis, CTA framing, audience assumption. An AI annotation explains the structural logic behind each difference.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/compare</div></div>
+    <div style="padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between"><div style="font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.02em">Comparing two directions</div><div style="font-size:11px;color:var(--t2)">Both start from the same brief. Choose the approach that fits how customers should see you.</div></div>
+    <div class="cpl">
+      <div class="cpc">
+        <span class="ctag ctr">★ Recommended</span>
+        <div class="cpn">Warm &amp; Personal</div>
+        <div class="crow"><span class="crl">Tone</span><span class="crv">Conversational and relationship-led. Headlines speak to the homeowner directly.</span></div>
+        <div class="crow"><span class="crl">Structure</span><span class="crv">Services first, then credentials. Trust signals in the hero.</span></div>
+        <div class="crow"><span class="crl">Emphasis</span><span class="crv">Local experience and personal ownership are prominent.</span></div>
+        <div class="crow"><span class="crl">CTA</span><span class="crv">"Get a free quote" — low commitment, approachable.</span></div>
+        <div class="crow"><span class="crl">Best for</span><span class="crv">Customers choosing between local providers who want to feel a connection first.</span></div>
+        <button class="bp" style="width:100%;margin-top:14px">Choose this version</button>
+      </div>
+      <div class="cpc">
+        <span class="ctag cta2">Alternate</span>
+        <div class="cpn">Clean &amp; Professional</div>
+        <div class="crow"><span class="crl">Tone</span><span class="crv-d">Formal and credential-forward. Reads as established business, not sole trader.</span></div>
+        <div class="crow"><span class="crl">Structure</span><span class="crv-d">Credentials lead. Services use more category-standard language.</span></div>
+        <div class="crow"><span class="crl">Emphasis</span><span class="crv-d">Scale and professionalism. Less visible personal ownership.</span></div>
+        <div class="crow"><span class="crl">CTA</span><span class="crv-d">"Request a quote" — slightly more transactional framing.</span></div>
+        <div class="crow"><span class="crl">Best for</span><span class="crv">Customers comparing on credentials, possibly against larger companies.</span></div>
+        <div class="ai-dn"><strong>AI note:</strong> Your brief specified a personal, local tone and trust-signal priority. This version de-emphasises both — it scores higher only if your audience compares you to commercial firms.</div>
+        <button class="bg" style="width:100%;justify-content:center;margin-top:12px;padding:9px">Choose this version</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">6</div><div class="st">Guided Refinement</div></div>
+  <p class="ssub">Controls framed around business outcomes — not tool actions. Every change is previewed live and explained in plain language so users understand what the AI adjusted and why.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/refine</div></div>
+    <div class="rfl">
+      <div class="rfp">
+        <div><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">Refine your site</div><div style="font-size:11px;color:var(--t2);line-height:1.55">Changes preview live. Nothing is permanent until you continue.</div></div>
+        <div><div class="rsh">Personality</div><div class="sc"><span class="sug on">More local</span><span class="sug">More premium</span><span class="sug">Warmer</span><span class="sug">More direct</span><span class="sug">Cleaner</span></div></div>
+        <div><div class="rsh">Trust &amp; credibility</div><div class="sc"><span class="sug on">Add years in business</span><span class="sug">Surface certifications</span><span class="sug">Emphasise reviews</span><span class="sug">Add service area</span></div></div>
+        <div><div class="rsh">Services &amp; copy</div><div class="sc"><span class="sug">More service detail</span><span class="sug">Simpler descriptions</span><span class="sug">Lead with pricing</span></div></div>
+        <div><div class="rsh">Anything specific?</div><input type="text" class="ri" placeholder='e.g. "mention we serve Lake Oswego"'></div>
+        <button class="bp" style="margin-top:auto">Continue to editing →</button>
+        <div style="text-align:center"><button class="bg" style="width:auto;font-size:10px">Edit directly instead</button></div>
+      </div>
+      <div class="rfm">
+        <div class="lb"><div class="pulse"></div>Live preview — reflects your refinements</div>
+        <div class="ph" style="margin-bottom:9px">
+          <div class="phe">Serving Portland &amp; Lake Oswego since 2014</div>
+          <div class="phh">Your garden, exactly how you imagined it.</div>
+          <div class="phs">Locally trusted lawn care and sustainable landscaping for Portland area homeowners. Licensed, insured, and backed by 10+ years of local experience.</div>
+          <a href="#" class="phc">Get a free quote →</a>
+          <div class="pht"><div class="phti">✓ Licensed &amp; insured</div><div class="phti">✓ Portland &amp; Lake Oswego</div><div class="phti">★ 4.9 — 120 reviews</div></div>
+        </div>
+        <div class="wc"><strong>What changed:</strong> Service area now includes Lake Oswego in the hero and trust bar. "More local" softened the headline to relational framing and added a neighbourhood reference in the sub-copy.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">7</div><div class="st">Editor Handoff</div></div>
+  <p class="ssub">The AI context panel carries forward — compressed but visible. One recommended first edit is highlighted. Users know what's safe to change, what's still a placeholder, and where to start.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/editor</div></div>
+    <div class="edl">
+      <div class="edm">
+        <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:11px">Your generated site — ready to edit</div>
+        <div class="ec">
+          <div class="etb"><div class="et">T</div><div class="et">⬚</div><div class="et">⊞</div><div class="esep"></div><div class="et" style="width:30px">↩</div><div style="flex:1"></div><button class="bg" style="font-size:10px;padding:4px 9px">Preview</button><button class="bp" style="font-size:10px;padding:5px 12px;width:auto;margin-top:0">Publish →</button></div>
+          <div class="ehb">
+            <div class="ehl"></div><div class="ehh">↑ Edit first</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:6px">Serving Portland since 2014</div>
+            <div style="font-family:var(--fs);font-size:17px;font-style:italic;color:#3a2f22;line-height:1.3;margin-bottom:6px">Your garden, exactly how you imagined it.</div>
+            <div style="font-size:11px;color:#5f4d3a;line-height:1.55;margin-bottom:11px">Locally trusted lawn care and sustainable landscaping for Portland homeowners.</div>
+            <div style="display:inline-flex;align-items:center;gap:4px;background:var(--ac);color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:var(--r1)">Get a free quote →</div>
+          </div>
+          <div class="ebb">
+            <div class="er"><div class="ebi"><div class="ebil">Services</div><div class="ebiv">Lawn maintenance · Garden design · Seasonal care</div></div><div class="ebi"><div class="ebil">Trust</div><div class="ebiv">10+ years · Licensed · 4.9★</div></div><div class="ebi"><div class="ebil">Contact</div><div class="ebiv">Quote form · <span style="color:var(--warn)">placeholder@email.com</span></div></div></div>
+            <div style="font-size:10px;color:var(--t3);font-style:italic">Scroll to see full site — 6 sections generated</div>
+          </div>
+        </div>
+      </div>
+      <div class="edp">
+        <div><div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:7px">What to do next</div><div class="fec"><div class="fel">Recommended first edit</div><div class="fet">Add your real contact email to the quote form. Right now it's a placeholder — the most important conversion detail on the page.</div><div class="fea">→ Go to contact section</div></div></div>
+        <div><div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:7px">Still needs your input</div><ul class="ctl"><li><div class="ctd"></div>Contact email not yet added</li><li><div class="ctd"></div>No photos — category imagery in use</li><li><div class="ctd"></div>Service pricing not shown</li><li><div class="ctd"></div>Customer review not yet added</li></ul></div>
+        <div class="ctn">All AI decisions are preserved. If something's off, correct the brief and regenerate any section.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="w ss fi2">
+  <div class="sl2"><div class="sn">8</div><div class="st">Publish Readiness Check</div></div>
+  <p class="ssub">Business-completeness focused — not a technical launch checklist. The AI flags what it knows is missing from the brief and what it detected as placeholder content. Advisory, never a gate.</p>
+  <div class="mk">
+    <div class="mb"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="mu">builder.example.com/publish-check</div></div>
+    <div class="pl">
+      <div class="sw"><div class="sr2"><div class="sv2">5/8</div></div><div class="stx"><h4>Almost ready</h4><p>Structurally complete. Three items will improve credibility with first-time visitors before you go live.</p></div></div>
+      <ul class="cl">
+        <li class="ok"><div class="cii io">✓</div><div><div class="clt">Business name and description</div><div class="cld">Present and specific. Service area correctly mentioned in the hero.</div></div></li>
+        <li class="ok"><div class="cii io">✓</div><div><div class="clt">Trust signals visible</div><div class="cld">Years in business, licence status, and review rating all appear in the hero.</div></div></li>
+        <li class="ok"><div class="cii io">✓</div><div><div class="clt">Services described specifically</div><div class="cld">Three service blocks with specific descriptions — not generic category language.</div></div></li>
+        <li class="wn"><div class="cii iw">!</div><div><div class="clt">Contact email is a placeholder</div><div class="cld">The quote form is live but sending to placeholder@email.com. Replace before publishing.</div></div></li>
+        <li class="wn"><div class="cii iw">!</div><div><div class="clt">No customer photos</div><div class="cld">Category images in use. 2–3 before/after photos would significantly improve credibility.</div></div></li>
+        <li class="fl"><div class="cii if">!</div><div><div class="clt">No customer review or testimonial</div><div class="cld">A single quoted review would strengthen social proof. Optional but high-impact.</div></div></li>
+        <li class="ok"><div class="cii io">✓</div><div><div class="clt">CTA matches brief goal</div><div class="cld">"Get a free quote" present in hero, services section, and footer. Form is functional.</div></div></li>
+        <li class="ok"><div class="cii io">✓</div><div><div class="clt">No placeholder copy detected</div><div class="cld">All body copy is specific to your business. No filler text found.</div></div></li>
+      </ul>
+      <div style="display:flex;gap:10px;margin-top:16px"><button class="bp" style="width:auto">Publish when ready →</button><button class="bg">Fix flagged items first</button></div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- EDGE CASES -->
+<section class="w fi2">
+  <div class="sl">06 — Edge Cases</div>
+  <h2 class="sh">Where the flow has to stay honest.</h2>
+  <p class="sb">Each failure mode has a defined response that keeps the user moving without hiding what went wrong.</p>
+  <div class="eg">
+    <div class="ec2"><div class="etag">Edge Case 01</div><div class="et2">Output feels too generic</div><div class="eb">The generated homepage is structurally sound but could belong to any landscaping business in the category. Trust signals are vague; copy doesn't reference the service area.</div><div class="er2"><strong>Response:</strong> Highlight generic sections in the preview. Offer focused refinement actions tied to the specific gap — "Make this feel more Portland" or "Add specific service types."</div></div>
+    <div class="ec2"><div class="etag">Edge Case 02</div><div class="et2">Brand details are incomplete</div><div class="eb">User has a business name and services but no images, uneven tone, or missing proof points like reviews or certifications.</div><div class="er2"><strong>Response:</strong> Flag missing inputs before generation. Continue with a workable draft and show clearly which gaps are lowering specificity — not blocking progress.</div></div>
+    <div class="ec2"><div class="etag">Edge Case 03</div><div class="et2">User wants more control early</div><div class="eb">The user wants to change layout structure or section order before guided refinement finishes. The flow feels too slow for their skill level.</div><div class="er2"><strong>Response:</strong> "Edit directly" is visible at every preview step. AI context is preserved in the editor so early access doesn't mean starting cold.</div></div>
+    <div class="ec2"><div class="etag">Edge Case 04</div><div class="et2">Versions look the same</div><div class="eb">The user can't identify meaningful differences between the recommended version and the alternate. Comparison doesn't feel like a real decision.</div><div class="er2"><strong>Response:</strong> Annotate structural differences in tone, emphasis, and layout. Never surface alternates that are cosmetically different but functionally identical.</div></div>
+    <div class="ec2"><div class="etag">Edge Case 05</div><div class="et2">AI misunderstood the business</div><div class="eb">The generated site over-indexes on the wrong service, audience, or tone — the copy sounds like a different kind of business.</div><div class="er2"><strong>Response:</strong> Let the user correct the brief from the visible summary — not from scratch. Show which brief inputs produced which outputs so corrections feel targeted.</div></div>
+    <div class="ec2"><div class="etag">Edge Case 06</div><div class="et2">Momentum drops at handoff</div><div class="eb">User reaches the editor with the site loaded but doesn't know what to change first. The guided experience ends and the blank editor begins.</div><div class="er2"><strong>Response:</strong> One highlighted first edit and a short list of unresolved items. Context panel stays visible but compressed — supportive, not intrusive.</div></div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- DECISIONS -->
+<section class="w fi2" id="decisions">
+  <div class="sl">07 — Key Decisions &amp; Tradeoffs</div>
+  <h2 class="sh">Where the product judgment lives.</h2>
+  <p class="sb">These are the choices that define the concept — each one accepted a real cost.</p>
+  <div class="tdg">
+    <div class="tdc"><div class="tdl">Decision 01</div><div class="tdd">Desktop-first, no mobile flow</div><div class="tdr">Reviewing site structure, comparing versions, and making editing decisions are meaningfully better on larger screens. The generation-to-edit journey depends on spatial layout comparison that collapses at mobile sizes.</div><div class="tdc2">Cost: excludes users who only have mobile access. A responsive companion flow would be required in a v2 scope.</div></div>
+    <div class="tdc"><div class="tdl">Decision 02</div><div class="tdd">Guided brief over open prompt</div><div class="tdr">Blank prompts shift the difficulty onto the user. Structured inputs with a visible summary ensure the AI uses the right information — and the user can verify it before output appears.</div><div class="tdc2">Cost: experienced users may find structured input slower. The "edit directly" escape hatch addresses this without removing the guided path.</div></div>
+    <div class="tdc"><div class="tdl">Decision 03</div><div class="tdd">One recommendation, not equal alternates</div><div class="tdr">Three options with no recommendation creates analysis paralysis. One recommendation with visible AI rationale builds confidence and respects the brief — users can still compare and override.</div><div class="tdc2">Cost: users who disagree may feel the product is opinionated. The comparison step exists specifically for this case.</div></div>
+    <div class="tdc"><div class="tdl">Decision 04</div><div class="tdd">Refinement is not a restart</div><div class="tdr">Treating personalisation as a repair phase after generation creates the wrong mental model. Building refinement into the flow treats every change as a continuation of intent.</div><div class="tdc2">Cost: increases system complexity and requires the AI to maintain state across refinement steps — a real v1 engineering constraint.</div></div>
+    <div class="tdc"><div class="tdl">Decision 05</div><div class="tdd">Plain-language diffs in comparison</div><div class="tdr">Design vocabulary creates distance for non-designer users. Business-language differences — tone, emphasis, CTA framing — make the comparison actionable for the actual audience.</div><div class="tdc2">Cost: some nuance in visual differences is lost. Visual comparison is what the preview is for — comparison handles the decision logic.</div></div>
+    <div class="tdc"><div class="tdl">Decision 06</div><div class="tdd">Publish readiness is advisory, not a gate</div><div class="tdr">Blocking publish behind a completeness check undermines user agency. Surfacing prioritised flags gives users the information to decide — not a correction loop.</div><div class="tdc2">Cost: users may publish with placeholder contact details if they dismiss the warning. This is a user decision the product respects.</div></div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- VALIDATE -->
+<section class="w fi2" id="validate">
+  <div class="sl">08 — What I'd Validate Next</div>
+  <h2 class="sh">The questions that would define the real roadmap.</h2>
+  <p class="sb">These are the assumptions built into the concept that user research would need to confirm — or challenge.</p>
+  <div class="vll">
+    <div class="vli"><div class="vln">1</div><div><div class="vlh">Does version comparison increase confidence — or introduce doubt?</div><div class="vlb">The concept assumes showing two distinct versions with plain-language diffs helps users feel deliberate about their choice. The risk is it surfaces uncertainty about a recommendation they were already comfortable with. Test: compare task completion and confidence ratings between a single-recommendation flow and a two-version comparison.</div></div></div>
+    <div class="vli"><div class="vln">2</div><div><div class="vlh">Which refinement controls produce visible, credible changes?</div><div class="vlb">Outcome-framed controls are designed to be more useful than style-specific controls. Some may produce changes too subtle for users to notice or trust. Test: measure whether users can describe what changed — without prompting — after applying each control.</div></div></div>
+    <div class="vli"><div class="vln">3</div><div><div class="vlh">Where do experienced WordPress users want to enter — and do they stay?</div><div class="vlb">The concept assumes savvy users will tolerate the brief and style steps if "edit directly" is visible throughout. The risk is they skip the entire guided phase. Test: observe where power users reach for the escape hatch and whether they regret skipping earlier steps.</div></div></div>
+    <div class="vli"><div class="vln">4</div><div><div class="vlh">How much AI explanation is useful before it becomes noise?</div><div class="vlb">The AI reasoning panels are designed to build confidence. Users already satisfied with the output may read explanations as uncertainty signals. Test: A/B test explanation visibility and measure forward momentum vs hesitation at each decision point.</div></div></div>
+    <div class="vli"><div class="vln">5</div><div><div class="vlh">Does the one-edit recommendation reduce editing anxiety — or feel prescriptive?</div><div class="vlb">Naming a single first edit is intended to reduce the overwhelming feeling of entering a full editor. The risk is users interpret it as a constraint. Test: qualitative interviews at the handoff moment to distinguish helpful guidance from felt restriction.</div></div></div>
+  </div>
+</section>
+
+<hr class="d">
+
+<!-- ASSUMPTIONS -->
+<section class="w fi2">
+  <div class="sl">09 — Assumptions &amp; Open Questions</div>
+  <h2 class="sh">What this concept is built on.</h2>
+  <div class="nw">
+    <div class="nc"><h4>Assumptions made</h4><ul><li>Desktop is the right primary context for generation and editing review</li><li>A structured brief produces better AI output than an open prompt for this audience</li><li>Beginners need the AI to surface its reasoning before trusting its output</li><li>Experienced users will accept a guided brief if a direct edit path is always visible</li><li>Three style directions is enough variety without being overwhelming</li><li>Plain-language comparison rows outperform visual side-by-side for non-designers</li><li>Refinement that builds on the base output is safer than full re-generation</li><li>A single recommended first edit reduces anxiety more than a fully open editor</li><li>Publish readiness should be advisory, not a gate</li><li>Most users need confidence and momentum more than maximum control at the start</li></ul></div>
+    <div class="nc"><h4>Open questions for validation</h4><ul><li>Does version comparison help or does it undermine confidence in the recommendation?</li><li>Which refinement controls produce visible, credible changes vs cosmetic tweaks?</li><li>At what point do experienced users want to break out — and do they come back?</li><li>How much explanation is helpful before it reads as uncertainty or delay?</li><li>Does a recommended first edit feel supportive or limiting in the editor?</li><li>Is three style directions the right number, or does it depend on business category?</li><li>How does the flow perform for non-service businesses?</li><li>What's the right level of specificity the AI can claim from a lightweight brief?</li></ul></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="fa"><span class="fa-n">Harsh Kakroo</span><span class="fa-r">Product Designer</span></div>
+  <a href="https://github.com/harshkakroo" target="_blank">GitHub ↗</a>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.07});
+document.querySelectorAll('.fi2').forEach(el=>obs.observe(el));
+const links=document.querySelectorAll('nav ul a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id});
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
