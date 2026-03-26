@@ -123,7 +123,8 @@ p.sb{font-size:15px;color:var(--t2);max-width:640px;line-height:1.75}
 /* CONFIDENCE CARDS */
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
 .cc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r2);padding:20px}
-.cc-icon{font-size:17px;margin-bottom:9px}
+.cc-icon{width:28px;height:28px;margin-bottom:11px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid rgba(79,189,171,.22);background:rgba(79,189,171,.08);color:#9edfd4}
+.cc-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .cc-t{font-size:12px;font-weight:700;color:#e8e0d4;margin-bottom:4px}
 .cc-b{font-size:11px;color:rgba(240,235,227,.5);line-height:1.6}
 .cc-ex{margin-top:9px;padding:7px 9px;background:rgba(29,122,105,.15);border:1px solid rgba(29,122,105,.3);border-radius:var(--r1);font-size:10px;color:#9edfd4;line-height:1.5;font-style:italic}
@@ -354,10 +355,10 @@ footer a:hover{color:var(--text)}
 <body>
 
 <nav>
-  <div class="nb"><span class="nb-n">Harsh Kakroo</span><span class="nb-p">Northstar — AI Website Builder</span></div>
+  <div class="nb"><span class="nb-n">Harsh Kakroo</span><span class="nb-p">Northstar — Website Builder Workflow</span></div>
   <ul>
     <li><a href="#problem">Problem</a></li>
-    <li><a href="#ai">AI Design</a></li>
+    <li><a href="#ai">Workflow</a></li>
     <li><a href="#solution">Solution</a></li>
     <li><a href="#screens">Screens</a></li>
     <li><a href="#decisions">Decisions</a></li>
@@ -423,9 +424,9 @@ footer a:hover{color:var(--text)}
 
 <hr class="d">
 
-<!-- AI DECISION LOGIC -->
+<!-- RECOMMENDATION LOGIC -->
 <section class="w fi2" id="ai" style="padding-bottom:0">
-  <div class="sl">03 — AI Decision Logic</div>
+  <div class="sl">03 — Recommendation Logic</div>
   <h2 class="sh">The AI is visible, traceable, and correctable.</h2>
   <p class="sb">Most AI builders treat the model as a black box that delivers an answer. Northstar treats every AI decision as a surface that can be explained, questioned, and adjusted — without technical language.</p>
 </section>
@@ -465,17 +466,17 @@ footer a:hover{color:var(--text)}
     </div>
 
     <div style="margin-top:28px">
-      <div class="sdh" style="margin-bottom:14px">Four AI confidence signals surfaced throughout the flow</div>
+      <div class="sdh" style="margin-bottom:14px">Four trust signals surfaced throughout the flow</div>
       <div class="cg">
-        <div class="cc"><div class="cc-icon">📋</div><div class="cc-t">Brief confirmation</div><div class="cc-b">Before generation, the AI reflects what it understood in plain language. The user can correct any field before output begins — the highest-leverage trust moment in the flow.</div><div class="cc-ex">"We understood: local landscaping, Portland metro, quote-focused, personal tone."</div></div>
-        <div class="cc"><div class="cc-icon">★</div><div class="cc-t">Recommendation rationale</div><div class="cc-b">Every recommended version carries a one-paragraph explanation tied to the business brief — not generic design advice.</div><div class="cc-ex">"Your brief emphasised trust signals and a local service area. This direction surfaces both in the hero."</div></div>
-        <div class="cc"><div class="cc-icon">⚠</div><div class="cc-t">Specificity gap flags</div><div class="cc-b">When the AI can't infer something — no photos, no contact email, no testimonials — it flags the gap rather than silently filling it with convincing-looking placeholder content.</div><div class="cc-ex">"No images uploaded — category imagery in use. Swap these for higher specificity."</div></div>
-        <div class="cc"><div class="cc-icon">↻</div><div class="cc-t">Change attribution</div><div class="cc-b">After each refinement, the system explains what changed and why — so users understand the result rather than just accepting it.</div><div class="cc-ex">"'More local' added Lake Oswego to the hero and softened the headline to relational framing."</div></div>
+        <div class="cc"><div class="cc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="16" rx="2"></rect><path d="M9 9h6"></path><path d="M9 13h6"></path><path d="M9 17h4"></path></svg></div><div class="cc-t">Brief confirmation</div><div class="cc-b">Before generation, the AI reflects what it understood in plain language. The user can correct any field before output begins — the highest-leverage trust moment in the flow.</div><div class="cc-ex">"We understood: local landscaping, Portland metro, quote-focused, personal tone."</div></div>
+        <div class="cc"><div class="cc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.46 6.03.88-4.36 4.25 1.03 6.01L12 16.77 6.6 19.6l1.03-6.01L3.27 9.34l6.03-.88L12 3z"></path></svg></div><div class="cc-t">Recommendation rationale</div><div class="cc-b">Every recommended version carries a one-paragraph explanation tied to the business brief — not generic design advice.</div><div class="cc-ex">"Your brief emphasised trust signals and a local service area. This direction surfaces both in the hero."</div></div>
+        <div class="cc"><div class="cc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l8 14H4L12 4z"></path><path d="M12 9v4"></path><path d="M12 16h.01"></path></svg></div><div class="cc-t">Specificity gap flags</div><div class="cc-b">When the AI can't infer something — no photos, no contact email, no testimonials — it flags the gap rather than silently filling it with convincing-looking placeholder content.</div><div class="cc-ex">"No images uploaded — category imagery in use. Swap these for higher specificity."</div></div>
+        <div class="cc"><div class="cc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-13.66 5.66"></path><path d="M4 12a8 8 0 0 1 13.66-5.66"></path><path d="M8 17H6v-2"></path><path d="M16 7h2v2"></path></svg></div><div class="cc-t">Change attribution</div><div class="cc-b">After each refinement, the system explains what changed and why — so users understand the result rather than just accepting it.</div><div class="cc-ex">"'More local' added Lake Oswego to the hero and softened the headline to relational framing."</div></div>
       </div>
     </div>
 
     <div style="margin-top:28px">
-      <div class="sdh" style="margin-bottom:14px">Design principles for surfacing AI decisions</div>
+      <div class="sdh" style="margin-bottom:14px">Design principles for visible system guidance</div>
       <div class="aig">
         <div class="aic"><div class="ail">Principle 01</div><h3>Show understanding before showing output</h3><p>The brief confirmation step exists so users can see and correct what the AI understood before committing to a generation pass. Trust is built before output, not negotiated after it.</p></div>
         <div class="aic"><div class="ail">Principle 02</div><h3>Explain why, not just what</h3><p>Every AI recommendation includes a rationale tied to the business brief. "This leads with your trust signals because your goal is quote conversion" is useful. "This uses a warm palette" is not.</p></div>
@@ -540,7 +541,7 @@ footer a:hover{color:var(--text)}
         <div class="fi"><label>Trust signals</label><div class="chips"><span class="chip sel">10+ years experience</span><span class="chip sel">Licensed &amp; insured</span><span class="chip">Before/after photos</span><span class="chip sel">Local reviews</span></div></div>
       </div>
       <div class="bl-r">
-        <div class="bst" style="display:flex;align-items:center;gap:7px"><div class="aidot"></div>AI summary — confirm before building</div>
+        <div class="bst" style="display:flex;align-items:center;gap:7px"><div class="aidot"></div>Summary — confirm before building</div>
         <div class="bh">What we understood</div>
         <div class="bsb">The AI will use this to generate your site. Edit anything that's off.</div>
         <div class="sbox"><h4>Brief confirmed</h4><div class="sr"><span class="sk">Business</span><span class="sv">Green Leaf Landscaping</span></div><div class="sr"><span class="sk">Service area</span><span class="sv">Portland metro — residential</span></div><div class="sr"><span class="sk">Goal</span><span class="sv">Quote requests from homeowners</span></div><div class="sr"><span class="sk">Tone</span><span class="sv">Sustainable, professional, local</span></div><div class="sr"><span class="sk">Trust signals</span><span class="sv">10+ yrs, licensed, local reviews</span></div></div>
@@ -607,7 +608,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="pvm">
         <div class="aiw">
-          <div class="aiw-h"><div class="aib"><div class="aidot"></div>AI reasoning</div></div>
+          <div class="aiw-h"><div class="aib"><div class="aidot"></div>Why this version leads</div></div>
           <div class="aisr"><span class="aisk">Brief inputs used</span><span class="aisv">Local tone, 3 trust signals, quote-request goal — all matched to Warm &amp; Personal scoring.</span></div>
           <div class="aisr"><span class="aisk">Why it leads</span><span class="aisv">Trust signals appear in the hero. Headline is relational, not credential-first. CTA is low-commitment.</span></div>
           <div class="aisr"><span class="aisk">Specificity gap</span><span class="aisv"><strong>No photos.</strong> Category imagery in use — swapping in real photos is the highest-impact improvement available.</span></div>
@@ -655,7 +656,7 @@ footer a:hover{color:var(--text)}
         <div class="crow"><span class="crl">Emphasis</span><span class="crv-d">Scale and professionalism. Less visible personal ownership.</span></div>
         <div class="crow"><span class="crl">CTA</span><span class="crv-d">"Request a quote" — slightly more transactional framing.</span></div>
         <div class="crow"><span class="crl">Best for</span><span class="crv">Customers comparing on credentials, possibly against larger companies.</span></div>
-        <div class="ai-dn"><strong>AI note:</strong> Your brief specified a personal, local tone and trust-signal priority. This version de-emphasises both — it scores higher only if your audience compares you to commercial firms.</div>
+        <div class="ai-dn"><strong>Comparison note:</strong> Your brief specified a personal, local tone and trust-signal priority. This version de-emphasises both — it scores higher only if your audience compares you to commercial firms.</div>
         <button class="bg" style="width:100%;justify-content:center;margin-top:12px;padding:9px">Choose this version</button>
       </div>
     </div>
